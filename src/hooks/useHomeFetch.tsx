@@ -22,6 +22,7 @@ const initialMoviesState: Movies = {
 };
 
 export const useHomeFetch = () => {
+  const [movieSearch, setMovieSearch] = useState<string>("");
   const [movies, setMovies] = useState<Movies>(initialMoviesState);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
@@ -49,5 +50,5 @@ export const useHomeFetch = () => {
     fetchMovie(1);
   }, []);
 
-  return { movies, loading, error };
+  return { movies, loading, error, setMovieSearch };
 };

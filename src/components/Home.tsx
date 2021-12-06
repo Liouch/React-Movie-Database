@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { POSTER_SIZE, BACKDROP_SIZE, IMAGE_BASE_URL } from "../config";
 import { useHomeFetch } from "../hooks/useHomeFetch";
 
 import NoImage from "../images/no_image.jpg";
 import Grid from "./Grid/Grid";
 import HeroImage from "./HeroImage/HeroImage";
+import SearchBar from "./SearchBar/SearchBar";
+import { Spinner } from "./Spinner/Spinner.styles";
 import Thumbnail from "./Thumbnails/Thumbnail";
 
 const Home = () => {
-  const { movies, loading, error } = useHomeFetch();
+  const { movies, loading, error, setMovieSearch } = useHomeFetch();
   console.log(movies);
 
   return (
@@ -20,6 +22,7 @@ const Home = () => {
           text={movies.results[0].overview}
         />
       )}
+      <SearchBar setMovieSearch={setMovieSearch} />
       <Grid header="Popular Movies">
         {movies.results.map((movie) => (
           <Thumbnail
@@ -34,6 +37,7 @@ const Home = () => {
           />
         ))}
       </Grid>
+      <Spinner />
     </>
   );
 };
