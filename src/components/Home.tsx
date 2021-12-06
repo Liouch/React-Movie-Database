@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { POSTER_SIZE, BACKDROP_SIZE, IMAGE_BASE_URL } from "../config";
 import { useHomeFetch } from "../hooks/useHomeFetch";
 
-import NoImage from "../images/no_images.jpg";
+import NoImage from "../images/no_image.jpg";
+import Grid from "./Grid/Grid";
 import HeroImage from "./HeroImage/HeroImage";
+import Thumbnail from "./Thumbnails/Thumbnail";
 
 const Home = () => {
   const { movies, loading, error } = useHomeFetch();
@@ -18,6 +20,20 @@ const Home = () => {
           text={movies.results[0].overview}
         />
       )}
+      <Grid header="Popular Movies">
+        {movies.results.map((movie) => (
+          <Thumbnail
+            key={movie.id}
+            clickable
+            image={
+              movie.poster_path
+                ? IMAGE_BASE_URL + POSTER_SIZE + movie.poster_path
+                : NoImage
+            }
+            movieId={movie.id}
+          />
+        ))}
+      </Grid>
     </>
   );
 };

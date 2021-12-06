@@ -8,6 +8,7 @@ type Movies = {
     backdrop_path: string;
     original_title: string;
     overview: string;
+    id: string;
   }[];
   total_pages: number;
   total_results: number;
