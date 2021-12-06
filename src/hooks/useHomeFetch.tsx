@@ -3,7 +3,12 @@ import API from "../API";
 
 type Movies = {
   page: number;
-  results: { [key: string]: string | number | boolean | number[] }[];
+  results: {
+    [key: string]: string | number | boolean | number[];
+    backdrop_path: string;
+    original_title: string;
+    overview: string;
+  }[];
   total_pages: number;
   total_results: number;
 };
