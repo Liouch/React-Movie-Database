@@ -3,6 +3,7 @@ import { POSTER_SIZE, BACKDROP_SIZE, IMAGE_BASE_URL } from "../config";
 import { useHomeFetch } from "../hooks/useHomeFetch";
 
 import NoImage from "../images/no_image.jpg";
+import Button from "./Button/Button";
 import Grid from "./Grid/Grid";
 import HeroImage from "./HeroImage/HeroImage";
 import SearchBar from "./SearchBar/SearchBar";
@@ -10,9 +11,17 @@ import { Spinner } from "./Spinner/Spinner.styles";
 import Thumbnail from "./Thumbnails/Thumbnail";
 
 const Home = () => {
-  const { movies, loading, error, movieSearch, setMovieSearch } =
-    useHomeFetch();
+  const {
+    movies,
+    loading,
+    error,
+    movieSearch,
+    setMovieSearch,
+    setIsLoadingMore,
+  } = useHomeFetch();
   console.log(movies);
+
+  if (error) return <div>Something went wrong...</div>;
 
   return (
     <>
@@ -38,7 +47,10 @@ const Home = () => {
           />
         ))}
       </Grid>
-      <Spinner />
+      {loading && <Spinner />}
+      {movies.page < movies.total_pages && !loading && (
+        <Button text="Load more" callback={setIsLoadingMore} />
+      )}
     </>
   );
 };
