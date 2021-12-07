@@ -1,15 +1,10 @@
 import { useState, useEffect } from "react";
 import API from "../API";
+import { Movie } from "./useMovieFetch";
 
 type Movies = {
   page: number;
-  results: {
-    [key: string]: string | number | boolean | number[];
-    backdrop_path: string;
-    original_title: string;
-    overview: string;
-    id: string;
-  }[];
+  results: Movie[];
   total_pages: number;
   total_results: number;
 };
