@@ -1,5 +1,6 @@
 import React from "react";
 import { Image } from "./Thumbnails.styles";
+import { Link } from "react-router-dom";
 
 type Props = {
   image: string;
@@ -9,7 +10,13 @@ type Props = {
 
 const Thumbnail = ({ image, movieId, clickable }: Props) => (
   <div>
-    <Image src={image} alt="movie-thumbnail" />
+    {clickable ? (
+      <Link to={`/${movieId}`}>
+        <Image src={image} alt="movie-thumbnail" />
+      </Link>
+    ) : (
+      <Image src={image} alt="movie-thumbnail" />
+    )}
   </div>
 );
 
