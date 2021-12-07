@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import API from "../API";
 
 export type Movie = {
-  [key: string]: string | number | boolean | number[];
+  [key: string]: {} | string | number | boolean | number[];
   backdrop_path: string;
   original_title: string;
   overview: string;
@@ -20,7 +20,7 @@ type Credits = {
 };
 
 export const useMovieFetch = (movieId: string | undefined) => {
-  const [movie, setMovie] = useState({});
+  const [movie, setMovie] = useState<Movie | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
 
@@ -40,12 +40,13 @@ export const useMovieFetch = (movieId: string | undefined) => {
         const directors = credits.crew.filter(
           (member) => member.job === "Directer"
         );
-
-        setMovie({
-          ...movieData,
-          actors: credits.cast,
-          directors,
-        });
+        if (movieData) {
+          setMovie({
+            ...movieData,
+            actors: credits.cast,
+            directors,
+          });
+        }
 
         setLoading(false);
       } catch (error) {
