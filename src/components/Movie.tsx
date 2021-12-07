@@ -8,6 +8,7 @@ import NoImage from "../images/no_image.jpg";
 import { useParams } from "react-router-dom";
 import BreadCrumb from "./BreadCrumb/BreadCrumb";
 import MovieInfo from "./MovieInfo/MovieInfo";
+import MovieInfoBar from "./MovieInfoBar/MovieInfoBar";
 
 const Movie = () => {
   const { movieId } = useParams();
@@ -20,6 +21,11 @@ const Movie = () => {
       <>
         <BreadCrumb movieTitle={movie.original_title} />
         <MovieInfo movie={movie} />
+        <MovieInfoBar
+          time={movie.runtime}
+          budget={movie.budget}
+          revenue={movie.revenue}
+        />
       </>
     );
   return null;

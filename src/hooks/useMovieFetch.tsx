@@ -7,6 +7,9 @@ export type Movie = {
   original_title: string;
   overview: string;
   id: string;
+  runtime: number;
+  budget: number;
+  revenue: number;
   /* directors: {
     adult: boolean;
     credit_id: string;
