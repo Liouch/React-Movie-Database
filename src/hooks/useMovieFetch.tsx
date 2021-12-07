@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import API from "../API";
 
 export type Movie = {
-  [key: string]: {} | string | number | boolean | number[] | [];
   backdrop_path: string;
   original_title: string;
   overview: string;
@@ -10,8 +9,32 @@ export type Movie = {
   runtime: number;
   budget: number;
   revenue: number;
-  /* directors: {
+  actors: {
+    credit_id: string;
+    name: string;
+    profile_path: string;
+    character: string;
+  }[];
+  directors: Credits["crew"];
+};
+
+type Credits = {
+  cast: {
     adult: boolean;
+    cast_id: number;
+    character: string;
+    credit_id: string;
+    gender: number;
+    id: number;
+    known_for_department: string;
+    name: string;
+    order: number;
+    original_name: string;
+    popularity: number;
+    profile_path: string;
+  }[];
+  crew: {
+    adult: false;
     credit_id: string;
     department: string;
     gender: number;
@@ -22,16 +45,6 @@ export type Movie = {
     original_name: string;
     popularity: number;
     profile_path: string;
-  }[]; */
-};
-
-type Credits = {
-  cast: {
-    [key: string]: number | string | boolean;
-  }[];
-  crew: {
-    [key: string]: number | string | boolean;
-    job: string;
   }[];
 };
 
