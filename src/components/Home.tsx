@@ -10,12 +10,13 @@ import { Spinner } from "./Spinner/Spinner.styles";
 import Thumbnail from "./Thumbnails/Thumbnail";
 
 const Home = () => {
-  const { movies, loading, error, setMovieSearch } = useHomeFetch();
+  const { movies, loading, error, movieSearch, setMovieSearch } =
+    useHomeFetch();
   console.log(movies);
 
   return (
     <>
-      {movies.results[0] && (
+      {!movieSearch && movies.results[0] && (
         <HeroImage
           image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${movies.results[0].backdrop_path}`}
           title={movies.results[0].original_title}
@@ -23,7 +24,7 @@ const Home = () => {
         />
       )}
       <SearchBar setMovieSearch={setMovieSearch} />
-      <Grid header="Popular Movies">
+      <Grid header={movieSearch ? "Search result" : "Popular movies"}>
         {movies.results.map((movie) => (
           <Thumbnail
             key={movie.id}

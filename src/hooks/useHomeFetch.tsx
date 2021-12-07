@@ -47,8 +47,9 @@ export const useHomeFetch = () => {
   };
 
   useEffect(() => {
-    fetchMovie(1);
-  }, []);
+    setMovies(initialMoviesState);
+    fetchMovie(1, movieSearch);
+  }, [movieSearch]);
 
-  return { movies, loading, error, setMovieSearch };
+  return { movies, loading, error, movieSearch, setMovieSearch };
 };
