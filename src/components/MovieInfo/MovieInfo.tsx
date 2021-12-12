@@ -9,7 +9,6 @@ type Props = {
 };
 
 const MovieInfo = ({ movie }: Props) => {
-  console.log(movie);
   return (
     <Wrapper backdrop={movie.backdrop_path}>
       <Content>
@@ -39,7 +38,6 @@ const MovieInfo = ({ movie }: Props) => {
               </h3>
               {Array.isArray(movie.directors) &&
                 movie.directors.map((director) => {
-                  console.log(director);
                   return <p key={director.credit_id}>{director.name}</p>;
                 })}
             </div>

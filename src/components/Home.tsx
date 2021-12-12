@@ -19,7 +19,6 @@ const Home = () => {
     setMovieSearch,
     setIsLoadingMore,
   } = useHomeFetch();
-  console.log(movies);
 
   if (error) return <div>Something went wrong...</div>;
 

@@ -13,3 +13,8 @@ export const convertMoney = (money: number) => {
   });
   return formatter.format(money);
 };
+
+export const isPersistedState = (stateName: string) => {
+  const sessionState = sessionStorage.getItem(stateName);
+  return sessionState && JSON.parse(sessionState);
+}

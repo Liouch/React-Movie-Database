@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import API from "../API";
+import { isPersistedState } from "../helpers";
 
 export type Movie = {
   backdrop_path: string;
@@ -16,6 +17,9 @@ export type Movie = {
     character: string;
   }[];
   directors: Credits["crew"];
+  poster_path: string;
+  title: string;
+  vote_average: string;
 };
 
 type Credits = {
@@ -62,8 +66,6 @@ export const useMovieFetch = (movieId: string | undefined) => {
 
         const movieData: Movie = await API.fetchMovie(movieId);
         const credits: Credits = await API.fetchCredits(movieId);
-        console.log(movieData);
-        console.log(credits);
 
         // get directors only
         const directors = credits.crew.filter(
@@ -82,8 +84,20 @@ export const useMovieFetch = (movieId: string | undefined) => {
         setError(true);
       }
     };
+    const sessionState = isPersistedState(movieId);
+
+    if (sessionState) {
+      setMovie(sessionState);
+      setLoading(false);
+      return;
+    }
+
     fetchMovie();
   }, [movieId]);
+
+  useEffect(() => {
+    if (movieId) sessionStorage.setItem(movieId, JSON.stringify(movie));
+  }, [movieId, movie]);
 
   return { movie, loading, error };
 };
