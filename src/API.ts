@@ -15,18 +15,78 @@ const defaultConfig = {
   },
 };
 
+export type Movies = {
+  page: number;
+  results: Movie[];
+  total_pages: number;
+  total_results: number;
+};
+
+export type Movie = {
+  backdrop_path: string;
+  original_title: string;
+  overview: string;
+  id: string;
+  runtime: number;
+  budget: number;
+  revenue: number;
+  actors: {
+    credit_id: string;
+    name: string;
+    profile_path: string;
+    character: string;
+  }[];
+  directors: Credits["crew"];
+  poster_path: string;
+  title: string;
+  vote_average: string;
+  popularity: number;
+  vote_count: number;
+};
+
+export type Credits = {
+  id: string;
+  cast: {
+    adult: boolean;
+    cast_id: number;
+    character: string;
+    credit_id: string;
+    gender: number;
+    id: number;
+    known_for_department: string;
+    name: string;
+    order: number;
+    original_name: string;
+    popularity: number;
+    profile_path: string;
+  }[];
+  crew: {
+    adult: false;
+    credit_id: number;
+    department: string;
+    gender: number;
+    id: number;
+    job: string;
+    known_for_department: string;
+    name: string;
+    original_name: string;
+    popularity: number;
+    profile_path: string;
+  }[];
+};
+
 const apiSettings = {
-  fetchMovies: async (searchTerm: string, page: number) => {
+  fetchMovies: async (searchTerm: string, page: number): Promise<Movies> => {
     const endpoint = searchTerm
       ? `${SEARCH_BASE_URL}${searchTerm}&page=${page}`
       : `${POPULAR_BASE_URL}&page=${page}`;
     return await (await fetch(endpoint)).json();
   },
-  fetchMovie: async (movieId) => {
+  fetchMovie: async (movieId: string): Promise<Movie> => {
     const endpoint = `${API_URL}movie/${movieId}?api_key=${API_KEY}`;
     return await (await fetch(endpoint)).json();
   },
-  fetchCredits: async (movieId) => {
+  fetchCredits: async (movieId: string): Promise<Credits> => {
     const creditsEndpoint = `${API_URL}movie/${movieId}/credits?api_key=${API_KEY}`;
     return await (await fetch(creditsEndpoint)).json();
   },
@@ -35,7 +95,11 @@ const apiSettings = {
     const reqToken = await (await fetch(REQUEST_TOKEN_URL)).json();
     return reqToken.request_token;
   },
-  authenticate: async (requestToken, username, password) => {
+  authenticate: async (
+    requestToken: string,
+    username: string,
+    password: string
+  ) => {
     const bodyData = {
       username,
       password,
@@ -59,7 +123,7 @@ const apiSettings = {
       return sessionId;
     }
   },
-  rateMovie: async (sessionId, movieId, value) => {
+  rateMovie: async (sessionId: number, movieId: number, value: string) => {
     const endpoint = `${API_URL}movie/${movieId}/rating?api_key=${API_KEY}&session_id=${sessionId}`;
 
     const rating = await (

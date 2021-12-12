@@ -3,8 +3,8 @@ import { IMAGE_BASE_URL, BACKDROP_SIZE } from "../../config";
 type WrapperProps = {
   backdrop: String | undefined;
 };
-export const Wrapper = styled.div`
-  background: ${({ backdrop }: WrapperProps) =>
+export const Wrapper = styled.div<WrapperProps>`
+  background: ${({ backdrop }) =>
     backdrop ? `url(${IMAGE_BASE_URL}${BACKDROP_SIZE}${backdrop})` : "#000"};
   background-size: cover;
   background-position: center;

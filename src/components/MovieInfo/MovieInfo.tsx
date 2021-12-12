@@ -2,7 +2,7 @@ import { Wrapper, Content, Text } from "./MovieInfo.styles";
 import { IMAGE_BASE_URL, POSTER_SIZE } from "../../config";
 import Thumbnail from "../Thumbnails/Thumbnail";
 import NoImage from "../../images/no_image.jpg";
-import { Movie } from "../../hooks/useMovieFetch";
+import { Movie } from "../../API";
 
 type Props = {
   movie: Movie;

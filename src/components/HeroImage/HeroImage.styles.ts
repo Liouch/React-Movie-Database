@@ -2,13 +2,13 @@ import styled from "styled-components";
 
 import { Props } from "./HeroImage";
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<Props>`
   background: linear-gradient(
       to bottom,
       rgba(0, 0, 0, 0) 41%,
       rgba(0, 0, 0, 0.65) 100%
     ),
-    url(${(props: Props) => props.image}), var(--darkGrey);
+    url(${({ image }) => image}), var(--darkGrey);
   background-size: 100%, cover;
   background-position: center;
   height: 600px;

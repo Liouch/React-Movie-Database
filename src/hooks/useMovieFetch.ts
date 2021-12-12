@@ -1,56 +1,6 @@
 import { useState, useEffect } from "react";
-import API from "../API";
+import API, { Credits, Movie } from "../API";
 import { isPersistedState } from "../helpers";
-
-export type Movie = {
-  backdrop_path: string;
-  original_title: string;
-  overview: string;
-  id: string;
-  runtime: number;
-  budget: number;
-  revenue: number;
-  actors: {
-    credit_id: string;
-    name: string;
-    profile_path: string;
-    character: string;
-  }[];
-  directors: Credits["crew"];
-  poster_path: string;
-  title: string;
-  vote_average: string;
-};
-
-type Credits = {
-  cast: {
-    adult: boolean;
-    cast_id: number;
-    character: string;
-    credit_id: string;
-    gender: number;
-    id: number;
-    known_for_department: string;
-    name: string;
-    order: number;
-    original_name: string;
-    popularity: number;
-    profile_path: string;
-  }[];
-  crew: {
-    adult: false;
-    credit_id: string;
-    department: string;
-    gender: number;
-    id: number;
-    job: string;
-    known_for_department: string;
-    name: string;
-    original_name: string;
-    popularity: number;
-    profile_path: string;
-  }[];
-};
 
 export const useMovieFetch = (movieId: string | undefined) => {
   const [movie, setMovie] = useState<Movie | null>(null);
@@ -84,7 +34,7 @@ export const useMovieFetch = (movieId: string | undefined) => {
         setError(true);
       }
     };
-    const sessionState = isPersistedState(movieId);
+    const sessionState = isPersistedState(movieId.toString());
 
     if (sessionState) {
       setMovie(sessionState);
@@ -96,7 +46,8 @@ export const useMovieFetch = (movieId: string | undefined) => {
   }, [movieId]);
 
   useEffect(() => {
-    if (movieId) sessionStorage.setItem(movieId, JSON.stringify(movie));
+    if (movieId)
+      sessionStorage.setItem(movieId.toString(), JSON.stringify(movie));
   }, [movieId, movie]);
 
   return { movie, loading, error };

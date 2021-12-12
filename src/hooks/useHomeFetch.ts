@@ -1,18 +1,10 @@
 import { useState, useEffect } from "react";
-import API from "../API";
+import API, { Movies, Movie } from "../API";
 import { isPersistedState } from "../helpers";
-import { Movie } from "./useMovieFetch";
-
-type Movies = {
-  page: number;
-  results: Movie[];
-  total_pages: number;
-  total_results: number;
-};
 
 const initialMoviesState: Movies = {
   page: 0,
-  results: [],
+  results: [] as Movie[],
   total_pages: 0,
   total_results: 0,
 };

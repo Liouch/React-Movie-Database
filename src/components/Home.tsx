@@ -48,7 +48,7 @@ const Home = () => {
       </Grid>
       {loading && <Spinner />}
       {movies.page < movies.total_pages && !loading && (
-        <Button text="Load more" callback={setIsLoadingMore} />
+        <Button text="Load more" callback={() => setIsLoadingMore(true)} />
       )}
     </>
   );

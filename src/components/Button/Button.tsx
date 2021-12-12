@@ -4,11 +4,11 @@ import { Wrapper } from "./Button.styles";
 
 type Props = {
   text: string;
-  callback: React.Dispatch<React.SetStateAction<boolean>>;
+  callback: () => void;
 };
 
 const Button = ({ text, callback }: Props) => (
-  <Wrapper type="button" onClick={() => callback(true)}>
+  <Wrapper type="button" onClick={callback}>
     {text}
   </Wrapper>
 );
